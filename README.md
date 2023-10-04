@@ -104,6 +104,8 @@ int main() {
 ### ASSEMBLY STRUCTURE
 
 ### GPIO
+
+```
 x30[0] is an input pin for IR sensor to detect the object.
 x30[1]  is an input pin used as a restart trigger.
 x30[2] is an input pin used for LDR to check the light.
@@ -112,6 +114,10 @@ x30[4] is an output pin used to indicate about the object detection.
 x30[5] is an output pin used to indicate about the water detection. 
 x30[6] is an output pin used to indicate about the light detection.
 x30[7] is an output pin used when there is no light.
+```
+
+
+
 
 ### ASSEMBLY CODE
 
