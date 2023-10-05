@@ -10,7 +10,8 @@ We will be using RISC-V to build the device and the sensor for that partiular fu
 
 ## BLOCK DIAGRAM OF THE BLIND STICK
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/974e335b-9308-4ee4-b424-be3aadfea1b8)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/7df5260b-3406-4f4c-abc6-9ef3a9524bb3)
+
 
 
 ## ASSEMBLY CODE GENERATION
