@@ -103,6 +103,12 @@ int main() {
 
 ### ASSEMBLY STRUCTURE
 
+Commands to convert C code into assmbly code using RISC-V 
+
+```
+riscv64-unknown-elf-gcc -O1 -mabi=ilp32 -march=rv32i -o final_code.o final_code.c
+```
+
 ### GPIO
 
 ```
