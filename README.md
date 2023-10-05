@@ -11,7 +11,8 @@ We will be using RISC-V to build the device and the sensor for that partiular fu
 ## BLOCK DIAGRAM OF THE BLIND STICK
 
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/7af45170-4c66-4a9c-a066-b5cd7773b6ca)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/130a69a7-e9ec-4d0d-a48c-cd235009702a)
+
 
 
 
@@ -28,17 +29,13 @@ The GNU compile toolchain is a set of programming tools in LINUX system that can
 
 ```
 
-//#include <stdio.h>
-//#define IR_SENSOR_PIN 17  // Replace with the actual GPIO pin number
+
 
 int sensorValue;
 int reset;
-int LDR;
-int push_button_LDR;
 int watersensor;
 int buzzer = 0;
 int buzzer_2 = 0;
-int buzzer_3 = 0;
 
 
 void delay(int milliseconds) {
@@ -52,47 +49,72 @@ void delay(int milliseconds) {
 
 int main() {
 
+	int buzzer_reg, buzzer_2_reg;
+	buzzer_reg = buzzer*8;
+        buzzer_2_reg = buzzer_2*16;
+	asm(
+	"or x30, x30,%0 \n\t"
+	"or x30, x30,%1 \n\t" 
+	:"=r"(buzzer_reg),"=r"(buzzer_2_reg));
 
-  //  pinMode(IR_SENSOR_PIN, INPUT);
 
     while (1) {
+	
+    	asm(
+	"andi %0, x30, 1\n\t"
+	:"=r"(reset));
     	if (reset)
     	{
     	buzzer =0;
         buzzer_2 =0;
-        buzzer_3 = 0;
+	buzzer_reg = buzzer*8;
+        buzzer_2_reg = buzzer_2*16;
+        asm(
+	"or x30, x30,%0 \n\t"
+	"or x30, x30,%1 \n\t"
+	:"=r"(buzzer_reg),"=r"(buzzer_2_reg));
     	}
+	int water_reg;
+
+	asm(
+	"andi %0, x30, 2\n\t"
+	:"=r"(water_reg));
     	
-    	
-    	if (!LDR){
-    		
-    		buzzer_2 = 1;
-    		if (push_button_LDR)
-    		{
-    		buzzer=1;
-    		}
-    		
-    		
-    	}
+	watersensor = water_reg/2;
     	
     	if (!watersensor){
     		
-    		buzzer_3 = 1;
+    		buzzer_2 = 1;
+       		buzzer_2_reg = buzzer_2*16;
+
+		asm(
+		"or x30, x30,%0 \n\t"
+		:"=r"(buzzer_2_reg));
+    		
     		
     	}
-    	
-    	
+
+	int ir_sensor_reg;
+    	asm(
+	"andi %0, x30, 3\n\t"
+	:"=r"(ir_sensor_reg));
+
+	sensorValue = ir_sensor_reg/4;
         
         if (sensorValue) {
         	buzzer = 1;
-            // Object detected, take appropriate action
-           // printf("Object Detected!\n");
-            // Implement your code here for what to do when an object is detected.
+		buzzer_reg = buzzer*8;
+		asm(
+	 	"or x30, x30,%0 \n\t"
+		:"=r"(buzzer_reg));
+
         } else {
         	buzzer =0;
-            // No object detected
-            //printf("No Object Detected\n");
-            // Implement your code here for what to do when no object is detected.
+		buzzer_reg = buzzer*8;
+		asm(
+	 	"or x30, x30,%0 \n\t"
+		:"=r"(buzzer_reg));
+
         }
 
         delay(1000);  // Delay between readings
@@ -119,12 +141,9 @@ riscv64-unknown-elf-gcc -O1 -mabi=ilp32 -march=rv32i -o final_code.o final_code.
 ```
 x30[0] is an input pin for IR sensor to detect the object.
 x30[1]  is an input pin used as a restart trigger.
-x30[2] is an input pin used for LDR to check the light.
-x30[3] is an input pin used for water detection.
-x30[4] is an output pin used to indicate about the object detection.
-x30[5] is an output pin used to indicate about the water detection. 
-x30[6] is an output pin used to indicate about the light detection.
-x30[7] is an output pin used when there is no light.
+x30[2] is an input pin used for water detection.
+x30[3] is an output pin used to indicate about the object detection.
+x30[4] is an output pin used to indicate about the water detection. 
 ```
 
 
@@ -156,7 +175,7 @@ Disassembly of section .text:
 0000002c <.L3>:
   2c:	fe842703          	lw	a4,-24(s0)
   30:	000027b7          	lui	a5,0x2
-  34:	70f78793          	add	a5,a5,1807 # 270f <.L11+0x260b>
+  34:	70f78793          	add	a5,a5,1807 # 270f <.L10+0x253f>
   38:	fee7d4e3          	bge	a5,a4,20 <.L4>
   3c:	fec42783          	lw	a5,-20(s0)
   40:	00178793          	add	a5,a5,1
@@ -173,84 +192,140 @@ Disassembly of section .text:
   64:	00008067          	ret
 
 00000068 <main>:
-  68:	ff010113          	add	sp,sp,-16
-  6c:	00112623          	sw	ra,12(sp)
-  70:	00812423          	sw	s0,8(sp)
-  74:	01010413          	add	s0,sp,16
-
-00000078 <.L12>:
+  68:	fe010113          	add	sp,sp,-32
+  6c:	00112e23          	sw	ra,28(sp)
+  70:	00812c23          	sw	s0,24(sp)
+  74:	02010413          	add	s0,sp,32
   78:	000007b7          	lui	a5,0x0
   7c:	0007a783          	lw	a5,0(a5) # 0 <delay>
-  80:	00078a63          	beqz	a5,94 <.L7>
-  84:	000007b7          	lui	a5,0x0
-  88:	0007a023          	sw	zero,0(a5) # 0 <delay>
-  8c:	000007b7          	lui	a5,0x0
-  90:	0007a023          	sw	zero,0(a5) # 0 <delay>
+  80:	00379793          	sll	a5,a5,0x3
+  84:	fef42623          	sw	a5,-20(s0)
+  88:	000007b7          	lui	a5,0x0
+  8c:	0007a783          	lw	a5,0(a5) # 0 <delay>
+  90:	00479793          	sll	a5,a5,0x4
+  94:	fef42423          	sw	a5,-24(s0)
+  98:	00ef6f33          	or	t5,t5,a4
+  9c:	00ff6f33          	or	t5,t5,a5
+  a0:	fee42623          	sw	a4,-20(s0)
+  a4:	fef42423          	sw	a5,-24(s0)
 
-00000094 <.L7>:
-  94:	000007b7          	lui	a5,0x0
-  98:	0007a783          	lw	a5,0(a5) # 0 <delay>
-  9c:	02079463          	bnez	a5,c4 <.L8>
-  a0:	000007b7          	lui	a5,0x0
-  a4:	00100713          	li	a4,1
-  a8:	00e7a023          	sw	a4,0(a5) # 0 <delay>
+000000a8 <.L11>:
+  a8:	001f7713          	and	a4,t5,1
   ac:	000007b7          	lui	a5,0x0
-  b0:	0007a783          	lw	a5,0(a5) # 0 <delay>
-  b4:	00078863          	beqz	a5,c4 <.L8>
-  b8:	000007b7          	lui	a5,0x0
-  bc:	00100713          	li	a4,1
-  c0:	00e7a023          	sw	a4,0(a5) # 0 <delay>
-
-000000c4 <.L8>:
-  c4:	000007b7          	lui	a5,0x0
-  c8:	0007a783          	lw	a5,0(a5) # 0 <delay>
-  cc:	00079863          	bnez	a5,dc <.L9>
+  b0:	00e7a023          	sw	a4,0(a5) # 0 <delay>
+  b4:	000007b7          	lui	a5,0x0
+  b8:	0007a783          	lw	a5,0(a5) # 0 <delay>
+  bc:	04078263          	beqz	a5,100 <.L7>
+  c0:	000007b7          	lui	a5,0x0
+  c4:	0007a023          	sw	zero,0(a5) # 0 <delay>
+  c8:	000007b7          	lui	a5,0x0
+  cc:	0007a023          	sw	zero,0(a5) # 0 <delay>
   d0:	000007b7          	lui	a5,0x0
-  d4:	00100713          	li	a4,1
-  d8:	00e7a023          	sw	a4,0(a5) # 0 <delay>
+  d4:	0007a783          	lw	a5,0(a5) # 0 <delay>
+  d8:	00379793          	sll	a5,a5,0x3
+  dc:	fef42623          	sw	a5,-20(s0)
+  e0:	000007b7          	lui	a5,0x0
+  e4:	0007a783          	lw	a5,0(a5) # 0 <delay>
+  e8:	00479793          	sll	a5,a5,0x4
+  ec:	fef42423          	sw	a5,-24(s0)
+  f0:	00ef6f33          	or	t5,t5,a4
+  f4:	00ff6f33          	or	t5,t5,a5
+  f8:	fee42623          	sw	a4,-20(s0)
+  fc:	fef42423          	sw	a5,-24(s0)
 
-000000dc <.L9>:
-  dc:	000007b7          	lui	a5,0x0
-  e0:	0007a703          	lw	a4,0(a5) # 0 <delay>
-  e4:	00100793          	li	a5,1
-  e8:	00f71a63          	bne	a4,a5,fc <.L10>
-  ec:	000007b7          	lui	a5,0x0
-  f0:	00100713          	li	a4,1
-  f4:	00e7a023          	sw	a4,0(a5) # 0 <delay>
-  f8:	00c0006f          	j	104 <.L11>
+00000100 <.L7>:
+ 100:	002f7793          	and	a5,t5,2
+ 104:	fef42223          	sw	a5,-28(s0)
+ 108:	fe442783          	lw	a5,-28(s0)
+ 10c:	01f7d713          	srl	a4,a5,0x1f
+ 110:	00f707b3          	add	a5,a4,a5
+ 114:	4017d793          	sra	a5,a5,0x1
+ 118:	00078713          	mv	a4,a5
+ 11c:	000007b7          	lui	a5,0x0
+ 120:	00e7a023          	sw	a4,0(a5) # 0 <delay>
+ 124:	000007b7          	lui	a5,0x0
+ 128:	0007a783          	lw	a5,0(a5) # 0 <delay>
+ 12c:	02079463          	bnez	a5,154 <.L8>
+ 130:	000007b7          	lui	a5,0x0
+ 134:	00100713          	li	a4,1
+ 138:	00e7a023          	sw	a4,0(a5) # 0 <delay>
+ 13c:	000007b7          	lui	a5,0x0
+ 140:	0007a783          	lw	a5,0(a5) # 0 <delay>
+ 144:	00479793          	sll	a5,a5,0x4
+ 148:	fef42423          	sw	a5,-24(s0)
+ 14c:	00ff6f33          	or	t5,t5,a5
+ 150:	fef42423          	sw	a5,-24(s0)
 
-000000fc <.L10>:
-  fc:	000007b7          	lui	a5,0x0
- 100:	0007a023          	sw	zero,0(a5) # 0 <delay>
+00000154 <.L8>:
+ 154:	003f7793          	and	a5,t5,3
+ 158:	fef42023          	sw	a5,-32(s0)
+ 15c:	fe042783          	lw	a5,-32(s0)
+ 160:	41f7d713          	sra	a4,a5,0x1f
+ 164:	00377713          	and	a4,a4,3
+ 168:	00f707b3          	add	a5,a4,a5
+ 16c:	4027d793          	sra	a5,a5,0x2
+ 170:	00078713          	mv	a4,a5
+ 174:	000007b7          	lui	a5,0x0
+ 178:	00e7a023          	sw	a4,0(a5) # 0 <delay>
+ 17c:	000007b7          	lui	a5,0x0
+ 180:	0007a783          	lw	a5,0(a5) # 0 <delay>
+ 184:	02078663          	beqz	a5,1b0 <.L9>
+ 188:	000007b7          	lui	a5,0x0
+ 18c:	00100713          	li	a4,1
+ 190:	00e7a023          	sw	a4,0(a5) # 0 <delay>
+ 194:	000007b7          	lui	a5,0x0
+ 198:	0007a783          	lw	a5,0(a5) # 0 <delay>
+ 19c:	00379793          	sll	a5,a5,0x3
+ 1a0:	fef42623          	sw	a5,-20(s0)
+ 1a4:	00ff6f33          	or	t5,t5,a5
+ 1a8:	fef42623          	sw	a5,-20(s0)
+ 1ac:	0240006f          	j	1d0 <.L10>
 
-00000104 <.L11>:
- 104:	3e800513          	li	a0,1000
- 108:	00000097          	auipc	ra,0x0
- 10c:	000080e7          	jalr	ra # 108 <.L11+0x4>
- 110:	f69ff06f          	j	78 <.L12>
+000001b0 <.L9>:
+ 1b0:	000007b7          	lui	a5,0x0
+ 1b4:	0007a023          	sw	zero,0(a5) # 0 <delay>
+ 1b8:	000007b7          	lui	a5,0x0
+ 1bc:	0007a783          	lw	a5,0(a5) # 0 <delay>
+ 1c0:	00379793          	sll	a5,a5,0x3
+ 1c4:	fef42623          	sw	a5,-20(s0)
+ 1c8:	00ff6f33          	or	t5,t5,a5
+ 1cc:	fef42623          	sw	a5,-20(s0)
+
+000001d0 <.L10>:
+ 1d0:	3e800513          	li	a0,1000
+ 1d4:	00000097          	auipc	ra,0x0
+ 1d8:	000080e7          	jalr	ra # 1d4 <.L10+0x4>
+ 1dc:	ecdff06f          	j	a8 <.L11>
 ```
 
 ### UNIQUE INSTRUCTION
 
 ```
-Number of different instructions: 15
+Number of different instructions: 20
 List of unique instructions:
-bge
-add
 lui
 ret
-nop
-li
-blt
+and
+mv
 beqz
-auipc
-lw
-sw
+li
 bnez
-bne
+blt
+add
+srl
+j
+auipc
+sll
 jalr
-j    
+sw
+lw
+bge
+nop
+sra
+or
 
 ```
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/9c43d7cd-245f-49c6-b61c-d0b4ebeee232)
 
 
