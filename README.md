@@ -31,14 +31,14 @@ The GNU compile toolchain is a set of programming tools in LINUX system that can
 //#include <stdio.h>
 //#define IR_SENSOR_PIN 17  // Replace with the actual GPIO pin number
 
-int sensorValue = 0;
+int sensorValue;
+int reset;
+int LDR;
+int push_button_LDR;
+int watersensor;
 int buzzer = 0;
 int buzzer_2 = 0;
 int buzzer_3 = 0;
-int reset =0;
-int LDR = 1;
-int push_button_LDR =0;
-int watersensor = 1;
 
 
 void delay(int milliseconds) {
@@ -58,12 +58,13 @@ int main() {
     while (1) {
     	if (reset)
     	{
-    	sensorValue =0;
     	buzzer =0;
+        buzzer_2 =0;
+        buzzer_3 = 0;
     	}
     	
     	
-    	if (LDR == 0){
+    	if (!LDR){
     		
     		buzzer_2 = 1;
     		if (push_button_LDR)
@@ -74,7 +75,7 @@ int main() {
     		
     	}
     	
-    	if (watersensor == 0){
+    	if (!watersensor){
     		
     		buzzer_3 = 1;
     		
@@ -82,7 +83,7 @@ int main() {
     	
     	
         
-        if (sensorValue == 1) {
+        if (sensorValue) {
         	buzzer = 1;
             // Object detected, take appropriate action
            // printf("Object Detected!\n");
