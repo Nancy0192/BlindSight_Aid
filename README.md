@@ -29,13 +29,115 @@ The GNU compile toolchain is a set of programming tools in LINUX system that can
 
 ```
 
+void delay(int);
 
 
-int sensorValue;
-int reset;
-int watersensor;
-int buzzer = 0;
-int buzzer_2 = 0;
+
+int main() {
+	int sensorValue;
+	int reset;
+	int watersensor;
+	int buzzer = 0;
+	int buzzer_2 = 0;
+
+
+	int buzzer_reg, buzzer_2_reg;
+	buzzer_reg = buzzer*8;
+        buzzer_2_reg = buzzer_2*16;
+	asm volatile(
+	"or x30, x30,%0 \n\t"
+	"or x30, x30,%1 \n\t"
+	: 
+	:"r"(buzzer_reg),"r"(buzzer_2_reg)
+	:"x30"
+	);
+
+
+    while (1) {
+	
+ 	asm volatile(
+	"andi %0, x30, 1\n\t"
+	:"=r"(reset)
+	:
+	:
+	);
+    	if (reset)
+    	{
+    	buzzer =0;
+        buzzer_2 =0;
+	buzzer_reg = buzzer*8;
+        buzzer_2_reg = buzzer_2*16;
+        asm volatile(
+	"or x30, x30,%0 \n\t"
+	"or x30, x30,%1 \n\t"
+	:
+	:"r"(buzzer_reg),"r"(buzzer_2_reg)
+	:"x30"
+	);
+    	}
+	int water_reg;
+
+	asm volatile(
+	"andi %0, x30, 2\n\t"
+	:"=r"(water_reg)
+	:
+	:
+	);
+    	
+	watersensor = water_reg/2;
+    	
+    	if (!watersensor){
+    		
+    		buzzer_2 = 1;
+       		buzzer_2_reg = buzzer_2*16;
+
+		asm volatile(
+		"or x30, x30,%0 \n\t"
+		:
+		:"r"(buzzer_2_reg)
+		:"x30"
+		);
+    		
+    		
+    	}
+
+	int ir_sensor_reg;
+    	asm volatile(
+	"andi %0, x30, 3\n\t"
+	:"=r"(ir_sensor_reg)
+	:
+	:
+	);
+
+	sensorValue = ir_sensor_reg/4;
+        
+        if (sensorValue) {
+        	buzzer = 1;
+		buzzer_reg = buzzer*8;
+		asm volatile(
+	 	"or x30, x30,%0 \n\t"
+	 	:
+		:"r"(buzzer_reg)
+		:"x30"
+		);
+
+        } else {
+        	buzzer =0;
+		buzzer_reg = buzzer*8;
+		asm volatile(
+	 	"or x30, x30,%0 \n\t"
+	 	:
+		:"r"(buzzer_reg)
+		:"x30"
+		);
+
+        }
+
+        delay(1000);  // Delay between readings
+    }
+
+    return 0;
+}
 
 
 void delay(int milliseconds) {
@@ -47,86 +149,15 @@ void delay(int milliseconds) {
 }
 
 
-int main() {
-
-	int buzzer_reg, buzzer_2_reg;
-	buzzer_reg = buzzer*8;
-        buzzer_2_reg = buzzer_2*16;
-	asm(
-	"or x30, x30,%0 \n\t"
-	"or x30, x30,%1 \n\t" 
-	:"=r"(buzzer_reg),"=r"(buzzer_2_reg));
-
-
-    while (1) {
-	
-    	asm(
-	"andi %0, x30, 1\n\t"
-	:"=r"(reset));
-    	if (reset)
-    	{
-    	buzzer =0;
-        buzzer_2 =0;
-	buzzer_reg = buzzer*8;
-        buzzer_2_reg = buzzer_2*16;
-        asm(
-	"or x30, x30,%0 \n\t"
-	"or x30, x30,%1 \n\t"
-	:"=r"(buzzer_reg),"=r"(buzzer_2_reg));
-    	}
-	int water_reg;
-
-	asm(
-	"andi %0, x30, 2\n\t"
-	:"=r"(water_reg));
-    	
-	watersensor = water_reg/2;
-    	
-    	if (!watersensor){
-    		
-    		buzzer_2 = 1;
-       		buzzer_2_reg = buzzer_2*16;
-
-		asm(
-		"or x30, x30,%0 \n\t"
-		:"=r"(buzzer_2_reg));
-    		
-    		
-    	}
-
-	int ir_sensor_reg;
-    	asm(
-	"andi %0, x30, 3\n\t"
-	:"=r"(ir_sensor_reg));
-
-	sensorValue = ir_sensor_reg/4;
-        
-        if (sensorValue) {
-        	buzzer = 1;
-		buzzer_reg = buzzer*8;
-		asm(
-	 	"or x30, x30,%0 \n\t"
-		:"=r"(buzzer_reg));
-
-        } else {
-        	buzzer =0;
-		buzzer_reg = buzzer*8;
-		asm(
-	 	"or x30, x30,%0 \n\t"
-		:"=r"(buzzer_reg));
-
-        }
-
-        delay(1000);  // Delay between readings
-    }
-
-    return 0;
-}
-
 
 
 
 ```
+
+### GCC COMPILER RESULTS
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/5893aa19-f7ed-4693-b1c5-a88f4308b969)
+
 
 ### ASSEMBLY STRUCTURE
 
