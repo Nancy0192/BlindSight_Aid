@@ -276,30 +276,22 @@ Disassembly of section .text:
 ### UNIQUE INSTRUCTION
 
 ```
-Number of different instructions: 18
+Number of different instructions: 9
 List of unique instructions:
-srl
-and
-sw
-or
-beqz
-jal
-sll
 j
-bge
-nop
+sw
+addi
+bne
 lw
-sra
-bnez
+andi
 li
-blt
-ret
-lui
-add
+or
+slli
 ```
 
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/d7d0d9cd-c769-4031-99ad-34709ede0005)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/50f76fc1-7223-44d7-8389-1dec27707608)
+
 
 
 
