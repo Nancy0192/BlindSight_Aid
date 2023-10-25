@@ -227,9 +227,8 @@ int main() {
 Commands to convert C code into assmbly code using RISC-V 
 
 ```
-/home/nancy/riscv32-toolchain/bin/riscv32-unknown-elf-gcc -march=rv32i -mabi=ilp32 -ffreestanding -nostdlib -o ./out blindsight_aid.c
-/home/nancy/riscv32-toolchain/bin/riscv32-unknown-elf-objdump -d -r out > assembly.txt
-
+riscv64-unknown-elf-gcc -march=rv32i -mabi=ilp32 -ffreestanding -nostdlib -o ./out check_f.c 
+riscv64-unknown-elf-objdump -d  -r out > blindstick_assembly.txt
 ```
 
 ### GPIO
