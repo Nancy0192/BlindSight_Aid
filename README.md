@@ -28,7 +28,6 @@ The GNU compile toolchain is a set of programming tools in LINUX system that can
 ### C Code
 
 ```
-
 //#include <stdio.h>
 //#include<stdlib.h>
 
@@ -190,7 +189,10 @@ int main() {
 
 		}
 		
-		asm volatile(
+
+	    }
+	    
+	        asm volatile(
 		"and x30, x30, %2\n\t"
 		"or x30, x30, %0 \n\t"
 		"or x30, x30, %1 \n\t"
@@ -209,12 +211,10 @@ int main() {
 	    	);
 	    	printf("Test4 = %d\n",test4);
 	    printf("IRSensorPin = %d, reset=%d, buzzer_object = %d, buzzer_water = %d, watersensorpin=%d\n", sensorValue, reset, buzzer_reg, buzzer_2_reg, watersensor);*/
-	    }
 
 	    return 0;
 	}
 	}
-
 ```
 
 ### GCC COMPILER RESULTS
