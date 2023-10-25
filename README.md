@@ -29,123 +29,191 @@ The GNU compile toolchain is a set of programming tools in LINUX system that can
 
 ```
 
+//#include <stdio.h>
+//#include<stdlib.h>
+
 int main() {
 	int sensorValue;
 	int reset;
 	int watersensor;
 	int buzzer = 0;
 	int buzzer_2 = 0;
+	int mask1 = 0xFFFFFFF7;
+//	int test,test1,test2,test3,test4;
 
 
 	int buzzer_reg, buzzer_2_reg;
 	buzzer_reg = buzzer*8;
         buzzer_2_reg = buzzer_2*16;
 	asm volatile(
-	"or x30, x30,%0 \n\t"
-	"or x30, x30,%1 \n\t"
+	"and x30, x30, %2\n\t"
+	"or x30, x30, %0 \n\t"
+	"or x30, x30, %1 \n\t"
 	: 
-	:"r"(buzzer_reg),"r"(buzzer_2_reg)
+	:"r"(buzzer_reg),"r"(buzzer_2_reg), "r"(mask1)
 	:"x30"
 	);
-
-
-    while (1) {
+	/*
+	 asm volatile(
+    	"addi x30, x30, 0\n\t"
+    	:"=r"(test)
+    	:
+    	:"x30"
+    	);
+    	printf("Test = %d\n",test);
+	printf("IRSensorPin = %d, reset=%d, buzzer_object = %d, buzzer_water = %d, watersensorpin=%d\n", sensorValue, reset, buzzer_reg, buzzer_2_reg, watersensor);
+        printf("Inside while 1\n");
+    	int z;
+	for(z=0;z<1;z++)
+	*/
 	
- 	asm volatile(
-	"andi %0, x30, 1\n\t"
-	:"=r"(reset)
-	:
-	:
-	);
-    	if (reset)
-    	{
-    	buzzer =0;
-        buzzer_2 =0;
-	buzzer_reg = buzzer*8;
-        buzzer_2_reg = buzzer_2*16;
-        asm volatile(
-	"or x30, x30,%0 \n\t"
-	"or x30, x30,%1 \n\t"
-	:
-	:"r"(buzzer_reg),"r"(buzzer_2_reg)
-	:"x30"
-	);
-    	}
-	int water_reg;
-
-	asm volatile(
-	"andi %0, x30, 2\n\t"
-	:"=r"(water_reg)
-	:
-	:
-	);
-    	
-	watersensor = water_reg/2;
-    	
-    	if (!watersensor){
-    		
-    		buzzer_2 = 1;
-       		buzzer_2_reg = buzzer_2*16;
-
-		asm volatile(
-		"or x30, x30,%0 \n\t"
+	    while (1)
+		 {
+		
+	 	asm volatile(
+		"andi %0, x30, 1\n\t"
+		:"=r"(reset)
 		:
-		:"r"(buzzer_2_reg)
-		:"x30"
-		);
-    		
-    		
-    	}
-    	
-    	else if(watersensor){
-    	
-    		buzzer_2 = 0;
-       		buzzer_2_reg = buzzer_2*16;
-
-		asm volatile(
-		"or x30, x30,%0 \n\t"
 		:
-		:"r"(buzzer_2_reg)
-		:"x30"
 		);
-    	
-    	}
-
-	int ir_sensor_reg;
-    	asm volatile(
-	"andi %0, x30, 3\n\t"
-	:"=r"(ir_sensor_reg)
-	:
-	:
-	);
-
-	sensorValue = ir_sensor_reg/4;
-        
-        if (sensorValue) {
-        	buzzer = 1;
+		reset=0;
+	    	if (reset)
+	    	{
+	    	buzzer =0;
+		buzzer_2 =0;
 		buzzer_reg = buzzer*8;
+		buzzer_2_reg = buzzer_2*16;
+	    	}
+	    	
+	    	/*
+	    	asm volatile(
+	    	"addi %0, x30, 0\n\t"
+	    	:"=r"(test1)
+	    	:
+	    	:"x30"
+	    	);
+	    	printf("test1 = %d\n",test1);
+		printf("Reset Button_val=%d\n",reset);
+		*/
+		
+		if (!reset){
+		int water_reg;
+		
+		
+
 		asm volatile(
-	 	"or x30, x30,%0 \n\t"
-	 	:
-		:"r"(buzzer_reg)
+		"andi %0, x30, 2\n\t"
+		:"=r"(water_reg)
+		:
+		:
+		);
+	    	
+		watersensor = water_reg/2;
+//	    	watersensor = 1;
+	    	if (!watersensor){
+	    		
+	    		buzzer_2 = 1;
+	       		buzzer_2_reg = buzzer_2*16;
+	       		/*
+
+		        asm volatile(
+		    	"addi %0, x30, 0\n\t"
+		    	:"=r"(test2)
+		    	:
+		    	:"x30"
+		    	);
+		    	printf("test2 = %d\n",test2);
+		        printf("IRSensorPin = %d, reset=%d, buzzer_object = %d, buzzer_water = %d, watersensorpin=%d\n", sensorValue, reset, buzzer_reg, buzzer_2_reg, watersensor);*/
+	    		
+	    		
+	    	}
+	    	
+	    	else if(watersensor){
+	    	
+	    		buzzer_2 = 0;
+	       		buzzer_2_reg = buzzer_2*16;
+	       		
+	       		/*
+
+			asm volatile(
+		    	"addi %0, x30, 0\n\t"
+		    	:"=r"(test2)
+		    	:
+		    	:"x30"
+		    	);
+		    	printf("test2 = %d\n",test2);
+		    	printf("IRSensorPin = %d, reset=%d, buzzer_object = %d, buzzer_water = %d, watersensorpin=%d\n", sensorValue, reset, buzzer_reg, buzzer_2_reg, watersensor);
+		    	*/
+	    	
+	    	}
+
+
+		int ir_sensor_reg;
+	    	asm volatile(
+		"andi %0, x30, 4\n\t"
+		:"=r"(ir_sensor_reg)
+		:
+		:
+		);
+
+		sensorValue = ir_sensor_reg/4;
+		sensorValue = 1;
+		
+		if (sensorValue) {
+			buzzer = 1;
+			buzzer_reg = buzzer*8;
+			/*
+
+			asm volatile(
+		    	"addi %0, x30, 0\n\t"
+		    	:"=r"(test3)
+		    	:
+		    	:"x30"
+		    	);
+		    	printf("test3 = %d\n",test3);
+		        printf("IRSensorPin = %d, reset=%d, buzzer_object = %d, buzzer_water = %d, watersensorpin=%d\n", sensorValue, reset, buzzer_reg, buzzer_2_reg, watersensor);*/
+
+		} else if (!sensorValue){
+			buzzer =0;
+			buzzer_reg = buzzer*8;
+			/*
+
+			asm volatile(
+		    	"addi %0, x30, 0\n\t"
+		    	:"=r"(test3)
+		    	:
+		    	:"x30"
+		    	);
+		    	printf("test3 = %d\n",test3);
+		    	
+		        printf("IRSensorPin = %d, reset=%d, buzzer_object = %d, buzzer_water = %d, watersensorpin=%d\n", sensorValue, reset, buzzer_reg, buzzer_2_reg, watersensor);*/
+
+		}
+		
+		asm volatile(
+		"and x30, x30, %2\n\t"
+		"or x30, x30, %0 \n\t"
+		"or x30, x30, %1 \n\t"
+		: 
+		:"r"(buzzer_reg),"r"(buzzer_2_reg), "r"(mask1)
 		:"x30"
 		);
 
-        } else if (!sensorValue){
-        	buzzer =0;
-		buzzer_reg = buzzer*8;
-		asm volatile(
-	 	"or x30, x30,%0 \n\t"
-	 	:
-		:"r"(buzzer_reg)
-		:"x30"
-		);
+	    	
+	    	/*
+	    	asm volatile(
+	    	"addi %0, x30, 0\n\t"
+	    	:"=r"(test4)
+	    	:
+	    	:"x30"
+	    	);
+	    	printf("Test4 = %d\n",test4);
+	    printf("IRSensorPin = %d, reset=%d, buzzer_object = %d, buzzer_water = %d, watersensorpin=%d\n", sensorValue, reset, buzzer_reg, buzzer_2_reg, watersensor);*/
+	    }
 
-        }
-    }
-
-    return 0;
-}
+	    return 0;
+	}
+	}
 
 ```
 
@@ -291,6 +359,48 @@ slli
 
 
 ![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/50f76fc1-7223-44d7-8389-1dec27707608)
+
+
+### SPIKE SIMULATION
+
+Use the following command to simulate the C code using spike:
+
+```
+riscv64-unknown-elf-gcc -march=rv64i -mabi=lp64 -ffreestanding -o out check.c
+spike pk out
+```
+
+The code consist of 3 inputs (for reset, IR sensor, water sensor) and two outputs. We will go through each condition and verify it using the spike simulation.
+
+**Condition 1** When Reset = 1 <br>
+
+When reset = 1 the code will not enter the while loop and will turn both the outputs zero.
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/fd24205d-f03e-4679-9b3c-272d2283f987)
+
+
+
+**Condition 2** when Reset =0, IR sensor = 1, water sensor = 1 (when it will detect the water it will send zero to the processor)
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/d65e3349-8b10-4ff4-9a37-209b564e466f)
+
+
+**Condition 3** when Reset =0, IR sensor = 0, water sensor = 1 
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/58d63522-eac3-40bd-84bd-c2c390f17f71)
+
+
+**Condition 4** when Reset =0, IR sensor = 1, water sensor = 0 
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/fe58c2de-f522-4073-9e6d-4c819c01bf04)
+
+
+**Condition 5** when Reset =0, IR sensor = 0, water sensor = 0 
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/b83c7a2f-7a27-4d20-a5e2-41e0da96d57b)
+
+
+
 
 
 
