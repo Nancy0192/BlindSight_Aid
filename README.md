@@ -28,8 +28,84 @@ The GNU compile toolchain is a set of programming tools in LINUX system that can
 ### C Code
 
 ```
-//#include <stdio.h>
-//#include<stdlib.h>
+include <stdio.h>
+
+
+
+
+int main() {
+
+	int sensorValue;
+	int watersensor;
+	int reset;
+	int buzzer = 0;
+	int buzzer_2 = 0;
+	
+
+    while (1) {
+	    	if (reset)
+	    	{
+	    	sensorValue =0;
+	    	buzzer =0;
+	    	printf("Resetting the values to Zero\n");
+	    	}
+    	
+		else  {
+		
+
+		
+		if ((!sensorValue) && (!watersensor)){
+		buzzer_2 = 1;
+		buzzer = 0;
+		
+		printf("Object not detected\n Water detected\n");
+	
+		}
+	 
+		if ((!sensorValue) && (watersensor)){
+		buzzer_2 = 0;
+		buzzer = 0;
+		
+		printf("Object not detected\n Water not detected\n");
+
+		}
+		
+		if ((sensorValue) && (!watersensor)){
+		buzzer_2 = 1;
+		buzzer = 1;
+		
+		printf("Object detected\n Water detected\n");
+
+		}
+		
+		if ((sensorValue) && (watersensor)){
+		buzzer_2 = 0;
+		buzzer = 1;
+		
+		printf("Object detected\n Water not detected\n");
+
+		}
+		}
+        
+  
+    }
+
+    return 0;
+}
+
+```
+
+### GCC COMPILER RESULTS
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/5893aa19-f7ed-4693-b1c5-a88f4308b969)
+
+
+### ASSEMBLY STRUCTURE
+
+**Code**
+
+
+```
 
 int main() {
 	int sensorValue;
@@ -37,9 +113,7 @@ int main() {
 	int watersensor;
 	int buzzer = 0;
 	int buzzer_2 = 0;
-	int mask1 = 0xFFFFFFF7;
-//	int test,test1,test2,test3,test4;
-
+	int mask1 = 0xFFFFFFE7;
 
 	int buzzer_reg, buzzer_2_reg;
 	buzzer_reg = buzzer*8;
@@ -52,19 +126,6 @@ int main() {
 	:"r"(buzzer_reg),"r"(buzzer_2_reg), "r"(mask1)
 	:"x30"
 	);
-	/*
-	 asm volatile(
-    	"addi x30, x30, 0\n\t"
-    	:"=r"(test)
-    	:
-    	:"x30"
-    	);
-    	printf("Test = %d\n",test);
-	printf("IRSensorPin = %d, reset=%d, buzzer_object = %d, buzzer_water = %d, watersensorpin=%d\n", sensorValue, reset, buzzer_reg, buzzer_2_reg, watersensor);
-        printf("Inside while 1\n");
-    	int z;
-	for(z=0;z<1;z++)
-	*/
 	
 	    while (1)
 		 {
@@ -75,7 +136,7 @@ int main() {
 		:
 		:
 		);
-		reset=0;
+		
 	    	if (reset)
 	    	{
 	    	buzzer =0;
@@ -84,150 +145,76 @@ int main() {
 		buzzer_2_reg = buzzer_2*16;
 	    	}
 	    	
-	    	/*
-	    	asm volatile(
-	    	"addi %0, x30, 0\n\t"
-	    	:"=r"(test1)
-	    	:
-	    	:"x30"
-	    	);
-	    	printf("test1 = %d\n",test1);
-		printf("Reset Button_val=%d\n",reset);
-		*/
 		
-		if (!reset){
-		int water_reg;
+		else  {
 		
-		
-
 		asm volatile(
-		"andi %0, x30, 2\n\t"
-		:"=r"(water_reg)
+		"andi %0, x30, 0x0002\n\t"
+		:"=r"(watersensor)
 		:
 		:
 		);
-	    	
-		watersensor = water_reg/2;
-//	    	watersensor = 1;
-	    	if (!watersensor){
-	    		
-	    		buzzer_2 = 1;
-	       		buzzer_2_reg = buzzer_2*16;
-	       		/*
-
-		        asm volatile(
-		    	"addi %0, x30, 0\n\t"
-		    	:"=r"(test2)
-		    	:
-		    	:"x30"
-		    	);
-		    	printf("test2 = %d\n",test2);
-		        printf("IRSensorPin = %d, reset=%d, buzzer_object = %d, buzzer_water = %d, watersensorpin=%d\n", sensorValue, reset, buzzer_reg, buzzer_2_reg, watersensor);*/
-	    		
-	    		
-	    	}
-	    	
-	    	else if(watersensor){
-	    	
-	    		buzzer_2 = 0;
-	       		buzzer_2_reg = buzzer_2*16;
-	       		
-	       		/*
-
-			asm volatile(
-		    	"addi %0, x30, 0\n\t"
-		    	:"=r"(test2)
-		    	:
-		    	:"x30"
-		    	);
-		    	printf("test2 = %d\n",test2);
-		    	printf("IRSensorPin = %d, reset=%d, buzzer_object = %d, buzzer_water = %d, watersensorpin=%d\n", sensorValue, reset, buzzer_reg, buzzer_2_reg, watersensor);
-		    	*/
-	    	
-	    	}
-
-
-		int ir_sensor_reg;
-	    	asm volatile(
-		"andi %0, x30, 4\n\t"
-		:"=r"(ir_sensor_reg)
-		:
-		:
-		);
-
-		sensorValue = ir_sensor_reg/4;
-		sensorValue = 1;
 		
-		if (sensorValue) {
-			buzzer = 1;
-			buzzer_reg = buzzer*8;
-			/*
-
-			asm volatile(
-		    	"addi %0, x30, 0\n\t"
-		    	:"=r"(test3)
-		    	:
-		    	:"x30"
-		    	);
-		    	printf("test3 = %d\n",test3);
-		        printf("IRSensorPin = %d, reset=%d, buzzer_object = %d, buzzer_water = %d, watersensorpin=%d\n", sensorValue, reset, buzzer_reg, buzzer_2_reg, watersensor);*/
-
-		} else if (!sensorValue){
-			buzzer =0;
-			buzzer_reg = buzzer*8;
-			/*
-
-			asm volatile(
-		    	"addi %0, x30, 0\n\t"
-		    	:"=r"(test3)
-		    	:
-		    	:"x30"
-		    	);
-		    	printf("test3 = %d\n",test3);
-		    	
-		        printf("IRSensorPin = %d, reset=%d, buzzer_object = %d, buzzer_water = %d, watersensorpin=%d\n", sensorValue, reset, buzzer_reg, buzzer_2_reg, watersensor);*/
-
+		asm volatile(
+		"andi %0, x30, 0x0004\n\t"
+		:"=r"(sensorValue)
+		:
+		:
+		);
+		
+		if ((!sensorValue) && (!watersensor)){
+		buzzer_2 = 1;
+		buzzer = 0;
+		buzzer_reg = buzzer*8;
+		buzzer_2_reg = buzzer_2*16;
+	       		
+		}
+	 
+		if ((!sensorValue) && (watersensor)){
+		buzzer_2 = 0;
+		buzzer = 0;
+		buzzer_reg = buzzer*8;
+		buzzer_2_reg = buzzer_2*16;
 		}
 		
-
-	    }
+		if ((sensorValue) && (!watersensor)){
+		buzzer_2 = 1;
+		buzzer = 1;
+		buzzer_reg = buzzer*8;
+		buzzer_2_reg = buzzer_2*16;
+		}
+		
+		if ((sensorValue) && (watersensor)){
+		buzzer_2 = 0;
+		buzzer = 1;
+		buzzer_reg = buzzer*8;
+		buzzer_2_reg = buzzer_2*16;
+		}
+		}
+		
+		
+		asm volatile(
+			"and x30, x30, %2\n\t"
+			"or x30, x30, %0 \n\t"
+			"or x30, x30, %1 \n\t"
+			: 
+			:"r"(buzzer_reg),"r"(buzzer_2_reg), "r"(mask1)
+			:"x30"
+			);
 	    
-	        asm volatile(
-		"and x30, x30, %2\n\t"
-		"or x30, x30, %0 \n\t"
-		"or x30, x30, %1 \n\t"
-		: 
-		:"r"(buzzer_reg),"r"(buzzer_2_reg), "r"(mask1)
-		:"x30"
-		);
 
-	    	
-	    	/*
-	    	asm volatile(
-	    	"addi %0, x30, 0\n\t"
-	    	:"=r"(test4)
-	    	:
-	    	:"x30"
-	    	);
-	    	printf("Test4 = %d\n",test4);
-	    printf("IRSensorPin = %d, reset=%d, buzzer_object = %d, buzzer_water = %d, watersensorpin=%d\n", sensorValue, reset, buzzer_reg, buzzer_2_reg, watersensor);*/
-
-	    return 0;
 	}
+	
+	return 0;
+	
 	}
 ```
 
-### GCC COMPILER RESULTS
-
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/5893aa19-f7ed-4693-b1c5-a88f4308b969)
-
-
-### ASSEMBLY STRUCTURE
 
 Commands to convert C code into assmbly code using RISC-V 
 
 ```
-riscv64-unknown-elf-gcc -march=rv32i -mabi=ilp32 -ffreestanding -nostdlib -o ./out check_f.c 
+riscv64-unknown-elf-gcc -march=rv32i -mabi=ilp32 -ffreestanding -nostdlib -o ./out ccode.c 
 riscv64-unknown-elf-objdump -d  -r out > blindstick_assembly.txt
 ```
 
@@ -255,12 +242,12 @@ out:     file format elf32-littleriscv
 Disassembly of section .text:
 
 00010054 <main>:
-   10054:	fc010113          	addi	sp,sp,-64
-   10058:	02812e23          	sw	s0,60(sp)
-   1005c:	04010413          	addi	s0,sp,64
+   10054:	fd010113          	addi	sp,sp,-48
+   10058:	02812623          	sw	s0,44(sp)
+   1005c:	03010413          	addi	s0,sp,48
    10060:	fe042223          	sw	zero,-28(s0)
    10064:	fe042023          	sw	zero,-32(s0)
-   10068:	ff700793          	li	a5,-9
+   10068:	fe700793          	li	a5,-25
    1006c:	fcf42e23          	sw	a5,-36(s0)
    10070:	fe442783          	lw	a5,-28(s0)
    10074:	00379793          	slli	a5,a5,0x3
@@ -276,106 +263,263 @@ Disassembly of section .text:
    1009c:	00ef6f33          	or	t5,t5,a4
    100a0:	001f7793          	andi	a5,t5,1
    100a4:	fcf42c23          	sw	a5,-40(s0)
-   100a8:	fc042c23          	sw	zero,-40(s0)
-   100ac:	fd842783          	lw	a5,-40(s0)
-   100b0:	02078263          	beqz	a5,100d4 <main+0x80>
-   100b4:	fe042223          	sw	zero,-28(s0)
-   100b8:	fe042023          	sw	zero,-32(s0)
-   100bc:	fe442783          	lw	a5,-28(s0)
-   100c0:	00379793          	slli	a5,a5,0x3
-   100c4:	fef42623          	sw	a5,-20(s0)
-   100c8:	fe042783          	lw	a5,-32(s0)
-   100cc:	00479793          	slli	a5,a5,0x4
-   100d0:	fef42423          	sw	a5,-24(s0)
-   100d4:	fd842783          	lw	a5,-40(s0)
-   100d8:	0a079c63          	bnez	a5,10190 <main+0x13c>
-   100dc:	002f7793          	andi	a5,t5,2
-   100e0:	fcf42a23          	sw	a5,-44(s0)
-   100e4:	fd442783          	lw	a5,-44(s0)
-   100e8:	01f7d713          	srli	a4,a5,0x1f
-   100ec:	00f707b3          	add	a5,a4,a5
-   100f0:	4017d793          	srai	a5,a5,0x1
-   100f4:	fcf42823          	sw	a5,-48(s0)
-   100f8:	fd042783          	lw	a5,-48(s0)
-   100fc:	00079e63          	bnez	a5,10118 <main+0xc4>
-   10100:	00100793          	li	a5,1
-   10104:	fef42023          	sw	a5,-32(s0)
-   10108:	fe042783          	lw	a5,-32(s0)
-   1010c:	00479793          	slli	a5,a5,0x4
-   10110:	fef42423          	sw	a5,-24(s0)
-   10114:	01c0006f          	j	10130 <main+0xdc>
+   100a8:	fd842783          	lw	a5,-40(s0)
+   100ac:	02078463          	beqz	a5,100d4 <main+0x80>
+   100b0:	fe042223          	sw	zero,-28(s0)
+   100b4:	fe042023          	sw	zero,-32(s0)
+   100b8:	fe442783          	lw	a5,-28(s0)
+   100bc:	00379793          	slli	a5,a5,0x3
+   100c0:	fef42623          	sw	a5,-20(s0)
+   100c4:	fe042783          	lw	a5,-32(s0)
+   100c8:	00479793          	slli	a5,a5,0x4
+   100cc:	fef42423          	sw	a5,-24(s0)
+   100d0:	0e40006f          	j	101b4 <main+0x160>
+   100d4:	002f7793          	andi	a5,t5,2
+   100d8:	fcf42a23          	sw	a5,-44(s0)
+   100dc:	004f7793          	andi	a5,t5,4
+   100e0:	fcf42823          	sw	a5,-48(s0)
+   100e4:	fd042783          	lw	a5,-48(s0)
+   100e8:	02079863          	bnez	a5,10118 <main+0xc4>
+   100ec:	fd442783          	lw	a5,-44(s0)
+   100f0:	02079463          	bnez	a5,10118 <main+0xc4>
+   100f4:	00100793          	li	a5,1
+   100f8:	fef42023          	sw	a5,-32(s0)
+   100fc:	fe042223          	sw	zero,-28(s0)
+   10100:	fe442783          	lw	a5,-28(s0)
+   10104:	00379793          	slli	a5,a5,0x3
+   10108:	fef42623          	sw	a5,-20(s0)
+   1010c:	fe042783          	lw	a5,-32(s0)
+   10110:	00479793          	slli	a5,a5,0x4
+   10114:	fef42423          	sw	a5,-24(s0)
    10118:	fd042783          	lw	a5,-48(s0)
-   1011c:	00078a63          	beqz	a5,10130 <main+0xdc>
-   10120:	fe042023          	sw	zero,-32(s0)
-   10124:	fe042783          	lw	a5,-32(s0)
-   10128:	00479793          	slli	a5,a5,0x4
-   1012c:	fef42423          	sw	a5,-24(s0)
-   10130:	004f7793          	andi	a5,t5,4
-   10134:	fcf42623          	sw	a5,-52(s0)
-   10138:	fcc42783          	lw	a5,-52(s0)
-   1013c:	41f7d713          	srai	a4,a5,0x1f
-   10140:	00377713          	andi	a4,a4,3
-   10144:	00f707b3          	add	a5,a4,a5
-   10148:	4027d793          	srai	a5,a5,0x2
-   1014c:	fcf42423          	sw	a5,-56(s0)
-   10150:	00100793          	li	a5,1
-   10154:	fcf42423          	sw	a5,-56(s0)
-   10158:	fc842783          	lw	a5,-56(s0)
-   1015c:	00078e63          	beqz	a5,10178 <main+0x124>
+   1011c:	02079663          	bnez	a5,10148 <main+0xf4>
+   10120:	fd442783          	lw	a5,-44(s0)
+   10124:	02078263          	beqz	a5,10148 <main+0xf4>
+   10128:	fe042023          	sw	zero,-32(s0)
+   1012c:	fe042223          	sw	zero,-28(s0)
+   10130:	fe442783          	lw	a5,-28(s0)
+   10134:	00379793          	slli	a5,a5,0x3
+   10138:	fef42623          	sw	a5,-20(s0)
+   1013c:	fe042783          	lw	a5,-32(s0)
+   10140:	00479793          	slli	a5,a5,0x4
+   10144:	fef42423          	sw	a5,-24(s0)
+   10148:	fd042783          	lw	a5,-48(s0)
+   1014c:	02078a63          	beqz	a5,10180 <main+0x12c>
+   10150:	fd442783          	lw	a5,-44(s0)
+   10154:	02079663          	bnez	a5,10180 <main+0x12c>
+   10158:	00100793          	li	a5,1
+   1015c:	fef42023          	sw	a5,-32(s0)
    10160:	00100793          	li	a5,1
    10164:	fef42223          	sw	a5,-28(s0)
    10168:	fe442783          	lw	a5,-28(s0)
    1016c:	00379793          	slli	a5,a5,0x3
    10170:	fef42623          	sw	a5,-20(s0)
-   10174:	01c0006f          	j	10190 <main+0x13c>
-   10178:	fc842783          	lw	a5,-56(s0)
-   1017c:	00079a63          	bnez	a5,10190 <main+0x13c>
-   10180:	fe042223          	sw	zero,-28(s0)
-   10184:	fe442783          	lw	a5,-28(s0)
-   10188:	00379793          	slli	a5,a5,0x3
-   1018c:	fef42623          	sw	a5,-20(s0)
-   10190:	fec42783          	lw	a5,-20(s0)
-   10194:	fe842703          	lw	a4,-24(s0)
-   10198:	fdc42683          	lw	a3,-36(s0)
-   1019c:	00df7f33          	and	t5,t5,a3
-   101a0:	00ff6f33          	or	t5,t5,a5
-   101a4:	00ef6f33          	or	t5,t5,a4
-   101a8:	00000793          	li	a5,0
-   101ac:	00078513          	mv	a0,a5
-   101b0:	03c12403          	lw	s0,60(sp)
-   101b4:	04010113          	addi	sp,sp,64
-   101b8:	00008067          	ret
+   10174:	fe042783          	lw	a5,-32(s0)
+   10178:	00479793          	slli	a5,a5,0x4
+   1017c:	fef42423          	sw	a5,-24(s0)
+   10180:	fd042783          	lw	a5,-48(s0)
+   10184:	02078863          	beqz	a5,101b4 <main+0x160>
+   10188:	fd442783          	lw	a5,-44(s0)
+   1018c:	02078463          	beqz	a5,101b4 <main+0x160>
+   10190:	fe042023          	sw	zero,-32(s0)
+   10194:	00100793          	li	a5,1
+   10198:	fef42223          	sw	a5,-28(s0)
+   1019c:	fe442783          	lw	a5,-28(s0)
+   101a0:	00379793          	slli	a5,a5,0x3
+   101a4:	fef42623          	sw	a5,-20(s0)
+   101a8:	fe042783          	lw	a5,-32(s0)
+   101ac:	00479793          	slli	a5,a5,0x4
+   101b0:	fef42423          	sw	a5,-24(s0)
+   101b4:	fec42783          	lw	a5,-20(s0)
+   101b8:	fe842703          	lw	a4,-24(s0)
+   101bc:	fdc42683          	lw	a3,-36(s0)
+   101c0:	00df7f33          	and	t5,t5,a3
+   101c4:	00ff6f33          	or	t5,t5,a5
+   101c8:	00ef6f33          	or	t5,t5,a4
+   101cc:	00000793          	li	a5,0
+   101d0:	00078513          	mv	a0,a5
+   101d4:	02c12403          	lw	s0,44(sp)
+   101d8:	03010113          	addi	sp,sp,48
+   101dc:	00008067          	ret
 ```
 
 ### UNIQUE INSTRUCTION
 
 ```
-Number of different instructions: 16
+Number of different instructions: 13
 List of unique instructions:
-addi
-slli
-bnez
-and
-li
-beqz
-srli
-add
-j
-mv
-srai
-ret
-andi
-or
 sw
+and
+bnez
+slli
+j
+li
+mv
+or
+andi
+ret
+addi
 lw
-
+beqz
 ```
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/172b8533-4583-4de3-9f71-856caf203e2f)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/1d85b3a4-df09-47b3-9012-a88426a46af3)
+
 
 
 
 ### SPIKE SIMULATION
+
+**Code**
+
+```
+#include <stdio.h>
+#include<stdlib.h>
+
+int main() {
+	int sensorValue;
+	int reset;
+	int watersensor;
+	int buzzer = 0;
+	int buzzer_2 = 0;
+	int mask1 = 0xFFFFFFE7;
+	int test,test1,test2,test3,test4;
+
+
+	int buzzer_reg, buzzer_2_reg;
+	buzzer_reg = buzzer*8;
+        buzzer_2_reg = buzzer_2*16;
+	asm volatile(
+	"and x30, x30, %2\n\t"
+	"or x30, x30, %0 \n\t"
+	"or x30, x30, %1 \n\t"
+	: 
+	:"r"(buzzer_reg),"r"(buzzer_2_reg), "r"(mask1)
+	:"x30"
+	);
+	
+	 asm volatile(
+    	"addi x30, x30, 0\n\t"
+    	:"=r"(test)
+    	:
+    	:"x30"
+    	);
+    	printf("Test = %d\n",test);
+	printf("IRSensorPin = %d, reset=%d, buzzer_object = %d, buzzer_water = %d, watersensorpin=%d\n", sensorValue, reset, buzzer_reg, buzzer_2_reg, watersensor);
+    	int z;
+	for(z=0;z<1;z++)
+	
+	
+//	    while (1)
+		 {
+		printf("Entering While Loop");
+	 	asm volatile(
+		"andi %0, x30, 1\n\t"
+		:"=r"(reset)
+		:
+		:
+		);
+		reset=0;
+	    	if (reset)
+	    	{
+	    	buzzer =0;
+		buzzer_2 =0;
+		buzzer_reg = buzzer*8;
+		buzzer_2_reg = buzzer_2*16;
+		printf("Reseting the sensor values");
+		asm volatile(
+	    	"addi %0, x30, 0\n\t"
+	    	:"=r"(test1)
+	    	:
+	    	:"x30"
+	    	);
+	    	printf("test1 = %d\n",test1);
+		printf("Reset Button_val=%d\n",reset);
+	    	}
+	    	
+	    	
+
+		
+		
+		else  {
+		
+		asm volatile(
+		"andi %0, x30, 0x0002\n\t"
+		:"=r"(watersensor)
+		:
+		:
+		);
+		
+		asm volatile(
+		"andi %0, x30, 0x0004\n\t"
+		:"=r"(sensorValue)
+		:
+		:
+		);
+		
+		sensorValue = 1;
+		watersensor = 0;
+		
+		if ((!sensorValue) && (!watersensor)){
+		buzzer_2 = 1;
+		buzzer = 0;
+		buzzer_reg = buzzer*8;
+		buzzer_2_reg = buzzer_2*16;
+	       		
+		}
+	 
+		if ((!sensorValue) && (watersensor)){
+		buzzer_2 = 0;
+		buzzer = 0;
+		buzzer_reg = buzzer*8;
+		buzzer_2_reg = buzzer_2*16;
+		
+		}
+		
+		if ((sensorValue) && (!watersensor)){
+		buzzer_2 = 1;
+		buzzer = 1;
+		buzzer_reg = buzzer*8;
+		buzzer_2_reg = buzzer_2*16;
+		}
+		
+		if ((sensorValue) && (watersensor)){
+		buzzer_2 = 0;
+		buzzer = 1;
+		buzzer_reg = buzzer*8;
+		buzzer_2_reg = buzzer_2*16;
+		}
+		}
+		
+		
+		
+
+		asm volatile(
+			"and x30, x30, %2\n\t"
+			"or x30, x30, %0 \n\t"
+			"or x30, x30, %1 \n\t"
+			: 
+			:"r"(buzzer_reg),"r"(buzzer_2_reg), "r"(mask1)
+			:"x30"
+			);
+	    
+
+
+	    	
+	    	
+	    	asm volatile(
+	    	"addi %0, x30, 0\n\t"
+	    	:"=r"(test4)
+	    	:
+	    	:"x30"
+	    	);
+	    	printf("Test4 = %d\n",test4);
+	    printf("IRSensorPin = %d, reset=%d, buzzer_object = %d, buzzer_water = %d, watersensorpin=%d\n", sensorValue, reset, buzzer, buzzer_2, watersensor);
+
+	    return 0;
+	}
+	}
+```
 
 Use the following command to simulate the C code using spike:
 
@@ -384,34 +528,43 @@ riscv64-unknown-elf-gcc -march=rv64i -mabi=lp64 -ffreestanding -o out check.c
 spike pk out
 ```
 
-The code consist of 3 inputs (for reset, IR sensor, water sensor) and two outputs. We will go through each condition and verify it using the spike simulation.
+The code consist of 3 inputs (for reset, IR sensor, water sensor) and two outputs. Reset input sets the output to zero. Whenever the IR sensor detects any object in its path the buzzer starts beeping similarly when water sensor detects water it breaks the circuit and hence transmit zero to the processor and hence the second buzzer starts beeping
+We will go through each condition and verify it using the spike simulation.
 
 **Condition 1** When Reset = 1 <br>
 
-When reset = 1 the code will not enter the while loop and will turn both the outputs zero.
+When reset = 1 the sensor values are not taken into consideration and outputs will be forced to zero.
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/fd24205d-f03e-4679-9b3c-272d2283f987)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/68e1cf0f-26dc-4454-95cf-dbf845e5836c)
 
 
 
-**Condition 2** when Reset =0, IR sensor = 1, water sensor = 1 (when it will detect the water it will send zero to the processor)
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/d65e3349-8b10-4ff4-9a37-209b564e466f)
+**Condition 2** When Reset =0, IR sensor = 1, Water sensor = 1 <br>
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/e0eee547-50b8-4d38-b539-231e951f8303)
+
 
 
 **Condition 3** when Reset =0, IR sensor = 0, water sensor = 1 
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/58d63522-eac3-40bd-84bd-c2c390f17f71)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/a1ea7707-e8a0-41ee-8093-627a40a12883)
+
 
 
 **Condition 4** when Reset =0, IR sensor = 1, water sensor = 0 
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/fe58c2de-f522-4073-9e6d-4c819c01bf04)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/87d12c72-0c98-4999-b33f-7a232de74c64)
+
 
 
 **Condition 5** when Reset =0, IR sensor = 0, water sensor = 0 
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/b83c7a2f-7a27-4d20-a5e2-41e0da96d57b)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/353924f3-ef48-4595-b056-47e1835a52a9)
+
+
+
+### FUNCTIONAL SIMULATION
 
 
 
