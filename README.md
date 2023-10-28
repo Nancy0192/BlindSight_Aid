@@ -564,11 +564,32 @@ When reset = 1 the sensor values are not taken into consideration and outputs wi
 
 
 
-### FUNCTIONAL SIMULATION
+### FUNCTIONAL SIMULATION USING GTKWAVE
 
 
 
+**Condition 1** When Reset = 1 <br>
 
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/8b17a078-e67b-4fe1-a0cc-3da7830ffa40)
+
+
+**Condition 2** When Reset =0, IR sensor = 1, Water sensor = 1 <br>
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/f8720d08-e852-4902-82a5-78f4f087caf8)
+
+
+**Condition 3** when Reset =0, IR sensor = 0, water sensor = 1 
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/0b49dcd4-b68d-4399-b338-91426a3afc28)
+
+
+**Condition 4** when Reset =0, IR sensor = 1, water sensor = 0 
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/379fa8d4-a02b-4df2-8a86-98055dd98019)
+
+**Condition 5** when Reset =0, IR sensor = 0, water sensor = 0 
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/9a921e5f-e4c5-40c3-9197-4e50b38d6508)
 
 
 
