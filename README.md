@@ -571,7 +571,8 @@ When reset = 1 the sensor values are not taken into consideration and outputs wi
 
 **Condition 1** When Reset = 1 <br>
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/8b17a078-e67b-4fe1-a0cc-3da7830ffa40)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/b8012490-ea2f-4628-8e70-1ca973d01a41)
+
 
 
 **Condition 2** When Reset =0, IR sensor = 1, Water sensor = 1 <br>
