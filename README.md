@@ -535,7 +535,8 @@ We will go through each condition and verify it using the spike simulation.
 
 When reset = 1 the sensor values are not taken into consideration and outputs will be forced to zero.
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/68e1cf0f-26dc-4454-95cf-dbf845e5836c)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/f8f75f29-b58b-4c15-868f-791dcdb33fc1)
+
 
 
 
@@ -575,21 +576,25 @@ When reset = 1 the sensor values are not taken into consideration and outputs wi
 
 **Condition 2** When Reset =0, IR sensor = 1, Water sensor = 1 <br>
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/f8720d08-e852-4902-82a5-78f4f087caf8)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/cd1ad4d1-9bf2-4d90-8285-8abe9afae598)
+
 
 
 **Condition 3** when Reset =0, IR sensor = 0, water sensor = 1 
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/0b49dcd4-b68d-4399-b338-91426a3afc28)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/adb122a5-d622-4a48-a2fc-b28878c32675)
+
 
 
 **Condition 4** when Reset =0, IR sensor = 1, water sensor = 0 
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/379fa8d4-a02b-4df2-8a86-98055dd98019)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/e2829662-65e9-4d19-b96e-043c4c08fead)
+
 
 **Condition 5** when Reset =0, IR sensor = 0, water sensor = 0 
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/9a921e5f-e4c5-40c3-9197-4e50b38d6508)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/ad085f40-7950-4351-9d69-a7a9ec05a216)
+
 
 
 
