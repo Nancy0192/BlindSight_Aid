@@ -599,3 +599,49 @@ When reset = 1 the sensor values are not taken into consideration and outputs wi
 
 
 
+
+### GATE LEVEL SYNTHESIS AND SIMULATION
+
+In our gate-level synthesis process, we've utilized the Yosys tool in conjunction with the "sky130_fd_sc_hd__tt_025C_1v80_256.lib" library, which has been integrated with SRAM cells.<br>
+To generate the synthesized netlist, the initial steps involve temporarily excluding the data and instruction memory modules by commenting them out, followed by the following steps:
+
+```
+$ yosys
+yosys> read_liberty -lib lib/sky130_fd_sc_hd__tt_025C_1v80_512.lib
+yosys> read_verilog processor.v
+yosys> synth -top wrapper
+yosys> dfflibmap -liberty lib/sky130_fd_sc_hd__tt_025C_1v80_512.lib
+yosys> abc -liberty lib/sky130_fd_sc_hd__tt_025C_1v80_512.lib
+yosys> write_verilog synth_asic.v
+```
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/5a52644e-bf29-4cce-a3a2-4d8d0b52004b)
+
+In the above image we can see that there are two sram cells mapped in the netlist.
+<br>
+To validate the UART functionality in this netlist, we ensure that in the "processor.v" file, the variable "writing_inst_done" is set to 1 to exclude the UART module during simulation, followed by the following steps:
+
+```
+$ yosys
+yosys> read_liberty -lib lib/sky130_fd_sc_hd__tt_025C_1v80_512.lib
+yosys> read_verilog processor.v
+yosys> synth -top wrapper
+yosys> dfflibmap -liberty lib/sky130_fd_sc_hd__tt_025C_1v80_512.lib
+yosys> abc -liberty lib/sky130_fd_sc_hd__tt_025C_1v80_512.lib
+yosys> write_verilog synth_test.v
+```
+This will create the netlist for UART functionality.
+<br>
+
+To verify the functionality of the GLS using the iverilog command which includes sram modules and related sky130 primitives.
+**Commands**
+
+
+```
+iverilog -o test testbench.v synth_test.v sky130_sram_1kbyte_1rw1r_32x256_8.v sky130_fd_sc_hd.v primitives.v
+./test
+gtkwave waveform.vcd &
+```
+
+
+
