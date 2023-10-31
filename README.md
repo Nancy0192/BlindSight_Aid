@@ -643,5 +643,38 @@ iverilog -o test testbench.v synth_test.v sky130_sram_1kbyte_1rw1r_32x256_8.v sk
 gtkwave waveform.vcd &
 ```
 
+**Condition 1** When Reset = 1 <br>
+
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/51ee1707-9a64-465e-8e13-ec289973315b)
+
+
+
+
+**Condition 2** When Reset =0, IR sensor = 1, Water sensor = 1 <br>
+
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/2f3fc68f-756c-4c96-8aba-68225c7868b1)
+
+
+
+
+**Condition 3** when Reset =0, IR sensor = 0, water sensor = 1 
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/a3d2d950-7177-4537-8467-b998a172a409)
+
+
+
+
+**Condition 4** when Reset =0, IR sensor = 1, water sensor = 0 
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/1f561f49-bfaa-4807-9e21-e2c47b0e5eef)
+
+
+
+
+**Condition 5** when Reset =0, IR sensor = 0, water sensor = 0 
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/6e0315aa-2d8a-48c5-9b4a-cb768a17acb4)
 
 
