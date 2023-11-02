@@ -535,8 +535,7 @@ We will go through each condition and verify it using the spike simulation.
 
 When reset = 1 the sensor values are not taken into consideration and outputs will be forced to zero.
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/f8f75f29-b58b-4c15-868f-791dcdb33fc1)
-
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/28853f7c-a5b8-4b6f-ab4f-85f1a037142d)
 
 
 
