@@ -570,17 +570,41 @@ When reset = 1 the sensor values are not taken into consideration and outputs wi
 
 **Condition 1** When Reset = 1 <br>
 
+
+In this example, the initial input condition was "100" which was changed after 1000 unit of time and was updated to "101" which was read in the same cycle and stored in a5 register as shown below:
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/4878b935-e6c3-415c-b14f-3f1988d5b70b)
+
+The expected output is "00" which is updated when the instruction is **101c4:	00ff6f33      or    t5,t5,a5** which OR's the value of a5 register with the previous value of t5.
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/459c4a57-b33a-4951-9573-75a5ccb963b4)
+
+<br>
+
+Simulation Results
+
 ![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/b8012490-ea2f-4628-8e70-1ca973d01a41)
 
 
 
 **Condition 2** When Reset =0, IR sensor = 1, Water sensor = 1 <br>
 
+Similar to the above conditions the oupt values are updated at the instruction  **101c8:	00ef6f33          	or	t5,t5,a4**  which OR's the value of a4 (which stores the value of stack pointer at **101b8:	fe842703          	lw	a4,-24(s0)**) register with the previous value of t5.
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/faf5f24d-f2e0-49ae-b2fb-e087d6b52512)
+
+Simulation Resuls:
 ![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/cd1ad4d1-9bf2-4d90-8285-8abe9afae598)
 
 
 
 **Condition 3** when Reset =0, IR sensor = 0, water sensor = 1 
+
+Similarl to the above condition the output is updated in the same instruction
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/c5ea00cc-d981-4a6b-a666-5bc8af0d4b09)
+
+Simulation Results:
 
 ![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/adb122a5-d622-4a48-a2fc-b28878c32675)
 
@@ -588,10 +612,26 @@ When reset = 1 the sensor values are not taken into consideration and outputs wi
 
 **Condition 4** when Reset =0, IR sensor = 1, water sensor = 0 
 
+Similarl to the above condition the output is updated in the same instruction
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/c0b4ea68-de2f-4dbb-b3b3-f2a3a7c60a2e)
+
+
+Simulation Results:
+
 ![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/e2829662-65e9-4d19-b96e-043c4c08fead)
 
 
 **Condition 5** when Reset =0, IR sensor = 0, water sensor = 0 
+
+
+Similarl to the above condition the output is updated in the same instruction
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/ee8d351e-30a9-46f5-a53a-de7e3dd4ecd2)
+
+
+Simulation Results:
+
 
 ![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/ad085f40-7950-4351-9d69-a7a9ec05a216)
 
@@ -643,6 +683,7 @@ gtkwave waveform.vcd &
 ```
 
 **Condition 1** When Reset = 1 <br>
+
 
 
 ![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/51ee1707-9a64-465e-8e13-ec289973315b)
