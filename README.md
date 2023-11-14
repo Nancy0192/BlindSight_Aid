@@ -718,3 +718,53 @@ gtkwave waveform.vcd &
 ![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/6e0315aa-2d8a-48c5-9b4a-cb768a17acb4)
 
 
+## PHYSICAL DESIGN USING OPENLANE
+
+**OpenLane** : OpenLane is a groundbreaking open-source ASIC (Application-Specific Integrated Circuit) design flow that has transformed the landscape of custom chip development. Developed under the aegis of the SkyWater PDK project, sponsored by Google, OpenLane represents a paradigm shift in the world of integrated circuit design. This powerful tool automates and streamlines the entire ASIC design process, from RTL (Register Transfer Level) design to GDSII file generation, making it accessible to a wider audience while significantly reducing design cycle times.
+
+
+**MAGIC** 
+Magic is a venerable VLSI layout tool, written in the 1980's at Berkeley by John Ousterhout, now famous primarily for writing the scripting interpreter language Tcl. Due largely in part to its liberal Berkeley open-source license, magic has remained popular with universities and small companies. The open-source license has allowed VLSI engineers with a bent toward programming to implement clever ideas and help magic stay abreast of fabrication technology. However, it is the well thought-out core algorithms which lend to magic the greatest part of its popularity. Magic is widely cited as being the easiest tool to use for circuit layout, even for people who ultimately rely on commercial tools for their product design flow.
+
+
+### Placement And Routing
+
+**Steps to invoke openlane and prepare the design**
+
+'''
+make mount
+%./flow.tcl -interactive
+% package require openlane 0.9
+% prep -design project
+'''
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/c4d290fe-def9-47d3-b179-7ba39b5c1a3c)
+
+
+**Steps to Synthesize the design**
+
+'''
+run_synthesis
+'''
+
+
+![Screenshot from 2023-11-14 15-22-20](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/5db64382-4e47-45e2-a93d-569e72b5ec7a)
+
+Synthesis Report:
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/152222cf-d7e5-438f-870e-0f96bb6a45c7)
+
+
+
+**Steps For Floorplanning**
+
+'''
+% run_floorplan
+'''
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/b162fd72-b780-4ff9-a55b-186874bb37e1)
+
+
+
+
+
