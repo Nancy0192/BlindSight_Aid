@@ -768,6 +768,60 @@ Synthesis Report:
 ![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/b162fd72-b780-4ff9-a55b-186874bb37e1)
 
 
+We can check the layout with magic with the following command :
 
+```
+magic -T /home/nancy/OpenLane/vsdstdcelldesign/libs/sky130A.tech lef read ../../tmp/merged.nom.lef def read wrapper.def
+```
+
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/f43dda97-792d-4abe-a393-6f6b8081c064)
+
+
+
+
+**Die Area**
+
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/7c7cc2a0-a4bf-4955-9c67-e0e605d40c7e)
+
+
+
+
+
+**Core Area**
+
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/4c56db35-d802-4a53-aba2-a476e4310737)
+
+
+
+
+
+### Placement
+
+Placement refers to the process of determining the physical locations of various components on the chip's surface. This step is crucial in the overall ASIC design flow, and it comes after the initial stages of logic synthesis and before routing.
+ecide where on the chip's surface each standard cell or block of logic will be physically located. The goal is to optimize the arrangement for factors such as speed, power consumption, and area utilization. Good placement can lead to improved performance and ease of routing in the subsequent steps.
+- Global Placement: Initially, a rough assignment of cells to regions of the chip is performed. This is a high-level placement that sets the stage for the detailed placement.
+- Detailed Placement: Fine-tune the positions of individual cells within the assigned regions. This step takes into account various factors like interconnectivity, signal delays, and power distribution.
+
+
+**Steps**
+
+```
+% run_placement
+```
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/c4c77bc0-915c-4459-a263-a7b7a03de7f9)
+
+
+We can check the layout with magic with the following command :
+
+```
+magic -T /home/nancy/OpenLane/vsdstdcelldesign/libs/sky130A.tech lef read ../../tmp/merged.nom.lef def read wrapper.def
+```
+
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/0ebacedc-cb45-46a9-afbf-11be78275738)
 
 
