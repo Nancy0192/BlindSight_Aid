@@ -731,21 +731,21 @@ Magic is a venerable VLSI layout tool, written in the 1980's at Berkeley by John
 
 **Steps to invoke openlane and prepare the design**
 
-'''
+```
 make mount
 %./flow.tcl -interactive
 % package require openlane 0.9
 % prep -design project
-'''
+```
 
 ![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/c4d290fe-def9-47d3-b179-7ba39b5c1a3c)
 
 
 **Steps to Synthesize the design**
 
-'''
+```
 run_synthesis
-'''
+```
 
 
 ![Screenshot from 2023-11-14 15-22-20](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/5db64382-4e47-45e2-a93d-569e72b5ec7a)
@@ -758,9 +758,12 @@ Synthesis Report:
 
 **Steps For Floorplanning**
 
-'''
+
+```
 % run_floorplan
-'''
+```
+
+
 
 ![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/b162fd72-b780-4ff9-a55b-186874bb37e1)
 
