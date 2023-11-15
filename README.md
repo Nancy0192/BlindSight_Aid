@@ -748,11 +748,14 @@ run_synthesis
 ```
 
 
-![Screenshot from 2023-11-14 15-22-20](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/5db64382-4e47-45e2-a93d-569e72b5ec7a)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/a25a4b51-32a2-4859-b3fb-a0dbe7201a1d)
+
+
 
 Synthesis Report:
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/152222cf-d7e5-438f-870e-0f96bb6a45c7)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/e09ad9e7-a20b-426c-a3d9-f8d7f202a445)
+
 
 
 
@@ -764,8 +767,8 @@ Synthesis Report:
 ```
 
 
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/eed32328-89eb-4403-a120-cedf96e0a791)
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/b162fd72-b780-4ff9-a55b-186874bb37e1)
 
 
 We can check the layout with magic with the following command :
@@ -783,7 +786,8 @@ magic -T /home/nancy/OpenLane/vsdstdcelldesign/libs/sky130A.tech lef read ../../
 **Die Area**
 
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/7c7cc2a0-a4bf-4955-9c67-e0e605d40c7e)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/15d91c70-ae3a-458b-ad19-a3ddbbadd058)
+
 
 
 
@@ -792,7 +796,9 @@ magic -T /home/nancy/OpenLane/vsdstdcelldesign/libs/sky130A.tech lef read ../../
 **Core Area**
 
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/4c56db35-d802-4a53-aba2-a476e4310737)
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/b3ad23f9-540e-4f0d-9c25-2a5b4db90d11)
+
 
 
 
@@ -812,7 +818,8 @@ ecide where on the chip's surface each standard cell or block of logic will be p
 % run_placement
 ```
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/c4c77bc0-915c-4459-a263-a7b7a03de7f9)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/34aa2cf4-153c-4269-9251-186737b1bd85)
+
 
 
 We can check the layout with magic with the following command :
@@ -821,7 +828,126 @@ We can check the layout with magic with the following command :
 magic -T /home/nancy/OpenLane/vsdstdcelldesign/libs/sky130A.tech lef read ../../tmp/merged.nom.lef def read wrapper.def
 ```
 
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/a8d513c0-0eab-46fe-a5ee-b97a1ec36059)
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/0ebacedc-cb45-46a9-afbf-11be78275738)
+
+### Clock Tree Synthesis
+
+ChatGPT
+
+Clock Tree Synthesis (CTS) focuses on designing an efficient and optimized clock distribution network within the chip. The primary goal of CTS is to ensure that the clock signal reaches all elements of the design with minimal skew, jitter, and power consumption. 
+In the initial phase of CTS, a global clock distribution network is created. This involves identifying clock source(s) and distributing the clock signal to major regions of the chip. The tool considers constraints like skew, insertion delay, and the overall topology of the clock tree.
+
+```
+% run_cts
+```
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/fbb3f2eb-ba0c-4f70-abe2-e133c04459fd)
+
+
+### Timing Report
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/c500b49d-d64c-4743-9125-8b1760596dec)
+
+
+### Area Report
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/44e1d6ed-50a6-4275-b6bc-5751bdcf9813)
+
+
+
+### Skew Report
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/81c1d1a9-7831-47d7-a1b6-044dce29fbd1)
+
+
+
+
+### Power Report
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/91b511ac-8152-4263-a0ae-f21169ff54a1)
+
+
+
+
+
+### Routing
+
+Routing involves creating the physical connections between the placed components on the chip. The primary goal of routing is to implement the logical connections specified in the netlist while adhering to design rules, timing constraints, and other considerations. <br>
+In the global routing phase, high-level metal tracks or routing channels are established to connect major sections of the chip. This involves defining the paths for power, clock, and other global signals. <br>
+Detailed routing is the more fine-grained phase where individual wires or metal traces are added to connect specific components based on the netlist. This involves navigating around obstacles, avoiding congested areas, and adhering to design rules. <br>
+
+
+**Steps**
+
+```
+% run_routing
+```
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/33a44849-df03-4db7-9853-8ca3cf69e24e)
+
+
+
+### Layout After Routing
+
+**Steps**
+
+```
+
+magic -T /home/nancy/OpenLane/vsdstdcelldesign/libs/sky130A.tech lef read ../../tmp/merged.nom.lef def read wrapper.def
+```
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/1fa1f619-738c-42cf-9395-8f1c8c6bcbbb)
+
+
+
+**Layout**
+
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/9beb0d47-76bf-4a62-920d-6ecf81a1a327)
+
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/ca37807e-2565-4ef3-9fb9-67a03439bd08)
+
+
+
+
+
+### Post-Routing Timing Report
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/b17e4cfe-9466-4a02-8dee-75db88ccb62b)
+
+
+
+
+### Post-Routing Area Report
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/d164362f-9f34-4e9e-80d7-1c82caa0e71d)
+
+
+### Post-Routing Power Report
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/75c602a0-e986-4a81-ba92-3b23c674da50)
+
+
+### Performance Calculation:
+
+Given a Clock period of 50ns in Json file , setup slack we got after routing is 12.95ns
+```
+                              1
+Max Performance =  ------------------------
+                     clock period - slack(setup)
+
+```
+```
+Max Performance = 0.026990 Ghz
+
+```
+
+
+
+
+
+
 
 
