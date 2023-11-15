@@ -945,6 +945,40 @@ Max Performance = 0.026990 Ghz
 ```
 
 
+## OpenLane Interactive Flow
+
+```
+cd Desktop/OpenLane/ 
+
+./flow.tcl -interactive
+package require openlane 0.9
+prep -design picorv32a
+run_synthesis
+run_floorplan
+run_placement
+run_cts
+gen_pdn
+run_routing
+run_magic
+run_magic_spice_export
+run_magic_drc
+run_antenna_check
+```
+
+
+## ACKNOWLEDMENT
+
+- Kunal Ghosh, VSD Corp. Pvt. Ltd.
+- Mayank Kabra (Founder, Chipcron Pvt. Ltd.)
+  
+
+
+## REFERENCES
+
+- https://github.com/SakethGajawada/RISCV-GNU
+- https://github.com/The-OpenROAD-Project/OpenLane
+
+
 
 
 
