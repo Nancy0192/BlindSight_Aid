@@ -748,13 +748,103 @@ run_synthesis
 ```
 
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/a25a4b51-32a2-4859-b3fb-a0dbe7201a1d)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/ab3afa79-62d4-4f0c-b411-c781990eef9b)
+
 
 
 
 Synthesis Report:
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/e09ad9e7-a20b-426c-a3d9-f8d7f202a445)
+```
+
+74. Printing statistics.
+
+=== wrapper ===
+
+   Number of wires:              11519
+   Number of wire bits:          11531
+   Number of public wires:       11519
+   Number of public wire bits:   11531
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:              11398
+     sky130_fd_sc_hd__a2111o_2     262
+     sky130_fd_sc_hd__a2111oi_2      2
+     sky130_fd_sc_hd__a211o_2       34
+     sky130_fd_sc_hd__a211oi_2      11
+     sky130_fd_sc_hd__a21bo_2       13
+     sky130_fd_sc_hd__a21boi_2       9
+     sky130_fd_sc_hd__a21o_2       102
+     sky130_fd_sc_hd__a21oi_2       55
+     sky130_fd_sc_hd__a221o_2       82
+     sky130_fd_sc_hd__a221oi_2      10
+     sky130_fd_sc_hd__a22o_2       614
+     sky130_fd_sc_hd__a2bb2o_2      11
+     sky130_fd_sc_hd__a311o_2        4
+     sky130_fd_sc_hd__a311oi_2       1
+     sky130_fd_sc_hd__a31o_2        55
+     sky130_fd_sc_hd__a31oi_2        4
+     sky130_fd_sc_hd__a32o_2        65
+     sky130_fd_sc_hd__a41o_2         2
+     sky130_fd_sc_hd__a41oi_2        1
+     sky130_fd_sc_hd__and2_2       894
+     sky130_fd_sc_hd__and2b_2      292
+     sky130_fd_sc_hd__and3_2       770
+     sky130_fd_sc_hd__and3b_2       14
+     sky130_fd_sc_hd__and4_2        23
+     sky130_fd_sc_hd__and4b_2       21
+     sky130_fd_sc_hd__and4bb_2      24
+     sky130_fd_sc_hd__buf_1       2398
+     sky130_fd_sc_hd__buf_2         64
+     sky130_fd_sc_hd__conb_1        36
+     sky130_fd_sc_hd__dfxtp_2     1281
+     sky130_fd_sc_hd__inv_2         68
+     sky130_fd_sc_hd__mux2_2       150
+     sky130_fd_sc_hd__mux4_2        39
+     sky130_fd_sc_hd__nand2_2      212
+     sky130_fd_sc_hd__nand2b_2       1
+     sky130_fd_sc_hd__nand3_2       11
+     sky130_fd_sc_hd__nand3b_2       5
+     sky130_fd_sc_hd__nand4_2        2
+     sky130_fd_sc_hd__nand4b_2       4
+     sky130_fd_sc_hd__nor2_2       838
+     sky130_fd_sc_hd__nor2b_2        1
+     sky130_fd_sc_hd__nor3_2         8
+     sky130_fd_sc_hd__nor3b_2        4
+     sky130_fd_sc_hd__nor4_2         8
+     sky130_fd_sc_hd__nor4b_2        2
+     sky130_fd_sc_hd__o2111a_2       3
+     sky130_fd_sc_hd__o2111ai_2      1
+     sky130_fd_sc_hd__o211a_2      106
+     sky130_fd_sc_hd__o211ai_2       3
+     sky130_fd_sc_hd__o21a_2        63
+     sky130_fd_sc_hd__o21ai_2       36
+     sky130_fd_sc_hd__o21ba_2        7
+     sky130_fd_sc_hd__o21bai_2       3
+     sky130_fd_sc_hd__o221a_2      305
+     sky130_fd_sc_hd__o221ai_2       2
+     sky130_fd_sc_hd__o22a_2       930
+     sky130_fd_sc_hd__o22ai_2        1
+     sky130_fd_sc_hd__o2bb2a_2     648
+     sky130_fd_sc_hd__o311a_2        2
+     sky130_fd_sc_hd__o31a_2        73
+     sky130_fd_sc_hd__o31ai_2        1
+     sky130_fd_sc_hd__o32a_2         3
+     sky130_fd_sc_hd__o41a_2         3
+     sky130_fd_sc_hd__or2_2        282
+     sky130_fd_sc_hd__or2b_2        27
+     sky130_fd_sc_hd__or3_2         75
+     sky130_fd_sc_hd__or3b_2        16
+     sky130_fd_sc_hd__or4_2        217
+     sky130_fd_sc_hd__or4b_2        11
+     sky130_fd_sc_hd__or4bb_2       10
+     sky130_fd_sc_hd__xnor2_2       38
+     sky130_fd_sc_hd__xor2_2        23
+     sky130_sram_1kbyte_1rw1r_32x256_8      2
+
+   Chip area for module '\wrapper': 486978.834400
+```
 
 
 
@@ -767,7 +857,8 @@ Synthesis Report:
 ```
 
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/eed32328-89eb-4403-a120-cedf96e0a791)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/e57af486-0a20-430f-86e1-ee6dca0e966d)
+
 
 
 
@@ -778,15 +869,16 @@ magic -T /home/nancy/OpenLane/vsdstdcelldesign/libs/sky130A.tech lef read ../../
 ```
 
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/f43dda97-792d-4abe-a393-6f6b8081c064)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/04a9db2c-3663-4537-87b0-79825780b2a1)
+
 
 
 
 
 **Die Area**
 
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/93f0b29e-9648-4c6e-9982-57a251516f9f)
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/15d91c70-ae3a-458b-ad19-a3ddbbadd058)
 
 
 
@@ -796,8 +888,8 @@ magic -T /home/nancy/OpenLane/vsdstdcelldesign/libs/sky130A.tech lef read ../../
 **Core Area**
 
 
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/2e118936-c68f-427a-90dc-40c911d9b082)
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/b3ad23f9-540e-4f0d-9c25-2a5b4db90d11)
 
 
 
@@ -818,7 +910,7 @@ ecide where on the chip's surface each standard cell or block of logic will be p
 % run_placement
 ```
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/34aa2cf4-153c-4269-9251-186737b1bd85)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/feef356e-f788-400e-826a-fc20fa6d5952)
 
 
 
@@ -828,7 +920,8 @@ We can check the layout with magic with the following command :
 magic -T /home/nancy/OpenLane/vsdstdcelldesign/libs/sky130A.tech lef read ../../tmp/merged.nom.lef def read wrapper.def
 ```
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/a8d513c0-0eab-46fe-a5ee-b97a1ec36059)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/efd08200-15b5-4409-8d15-cc56401d812f)
+
 
 
 ### Clock Tree Synthesis
@@ -842,30 +935,39 @@ In the initial phase of CTS, a global clock distribution network is created. Thi
 % run_cts
 ```
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/fbb3f2eb-ba0c-4f70-abe2-e133c04459fd)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/033f9be4-5049-40e3-9ad0-1b96bcd503c5)
+
 
 
 ### Timing Report
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/c500b49d-d64c-4743-9125-8b1760596dec)
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/ed0a4ee4-aa70-447a-a782-4569f76815e0)
+
 
 
 ### Area Report
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/44e1d6ed-50a6-4275-b6bc-5751bdcf9813)
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/61b1c808-2609-414f-820a-165eb19a4262)
+
+
 
 
 
 ### Skew Report
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/81c1d1a9-7831-47d7-a1b6-044dce29fbd1)
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/f81a6174-ebd6-4c81-922b-91edbda1ebf8)
+
 
 
 
 
 ### Power Report
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/91b511ac-8152-4263-a0ae-f21169ff54a1)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/f2452289-a776-4032-a43e-cb66221c434f)
+
 
 
 
@@ -884,7 +986,8 @@ Detailed routing is the more fine-grained phase where individual wires or metal 
 % run_routing
 ```
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/33a44849-df03-4db7-9853-8ca3cf69e24e)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/852d95da-ed36-4258-86e4-7749b49f2b31)
+
 
 
 
@@ -897,17 +1000,20 @@ Detailed routing is the more fine-grained phase where individual wires or metal 
 magic -T /home/nancy/OpenLane/vsdstdcelldesign/libs/sky130A.tech lef read ../../tmp/merged.nom.lef def read wrapper.def
 ```
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/1fa1f619-738c-42cf-9395-8f1c8c6bcbbb)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/3445bd09-c28d-401e-bdb7-69f214dc640f)
+
 
 
 
 **Layout**
 
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/9beb0d47-76bf-4a62-920d-6ecf81a1a327)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/85d86d59-5650-456f-bd25-053d242a67a0)
 
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/ca37807e-2565-4ef3-9fb9-67a03439bd08)
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/8a31d676-d738-41b0-ad96-4aa752a8141b)
+
 
 
 
@@ -915,24 +1021,35 @@ magic -T /home/nancy/OpenLane/vsdstdcelldesign/libs/sky130A.tech lef read ../../
 
 ### Post-Routing Timing Report
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/b17e4cfe-9466-4a02-8dee-75db88ccb62b)
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/c3ca5365-efeb-43ad-91c5-992692835d50)
+
 
 
 
 
 ### Post-Routing Area Report
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/d164362f-9f34-4e9e-80d7-1c82caa0e71d)
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/95b9b3e2-a053-4acd-a2ea-0a4e97eda647)
+
+
 
 
 ### Post-Routing Power Report
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/75c602a0-e986-4a81-ba92-3b23c674da50)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/f44d96df-b41b-4248-9234-2611291c0b8c)
+
+
+**DRC VIOLATIONS ARE ZERO**
+
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/b3e9b279-f4b0-4c37-9c80-5fc85539cc96)
+
 
 
 ### Performance Calculation:
 
-Given a Clock period of 50ns in Json file , setup slack we got after routing is 12.95ns
+Given a Clock period of 60ns in Json file , setup slack we got after routing is 15.68ns
 ```
                               1
 Max Performance =  ------------------------
@@ -940,7 +1057,7 @@ Max Performance =  ------------------------
 
 ```
 ```
-Max Performance = 0.026990 Ghz
+Max Performance = 0.0291375 Ghz
 
 ```
 
