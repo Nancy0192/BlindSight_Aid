@@ -942,14 +942,16 @@ In the initial phase of CTS, a global clock distribution network is created. Thi
 ### Timing Report
 
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/ed0a4ee4-aa70-447a-a782-4569f76815e0)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/93db56e8-c8d9-4170-a6f5-ee41d8640e3a)
+
 
 
 
 ### Area Report
 
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/61b1c808-2609-414f-820a-165eb19a4262)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/850132d2-7f1b-44fe-aae5-cbaaed3cfc31)
+
 
 
 
@@ -958,7 +960,8 @@ In the initial phase of CTS, a global clock distribution network is created. Thi
 ### Skew Report
 
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/f81a6174-ebd6-4c81-922b-91edbda1ebf8)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/1bbce58c-99a1-4170-b8ae-bdee0291ebbe)
+
 
 
 
@@ -966,7 +969,8 @@ In the initial phase of CTS, a global clock distribution network is created. Thi
 
 ### Power Report
 
-![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/f2452289-a776-4032-a43e-cb66221c434f)
+![image](https://github.com/Nancy0192/BlindSight_Aid/assets/140998633/05d4a884-2bdb-4208-ac7b-ecd0c8d3ed6d)
+
 
 
 
